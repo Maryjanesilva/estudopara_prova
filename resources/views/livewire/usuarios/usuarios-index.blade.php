@@ -1,50 +1,153 @@
-<div class="min-h-screen bg-purple-50 p-6 font-sans">
-
-    @if (session()->has('message'))
-        <div class="mb-4 p-4 bg-purple-200 border-l-4 border-purple-600 text-purple-800 rounded shadow">
-            {{ session('message') }}
+<div class="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 p-6 font-sans">
+    <div class="max-w-7xl mx-auto">
+        
+        <!-- Cabeçalho -->
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-white rounded-full shadow-lg mb-4 border border-purple-200">
+                <span class="text-3xl">👥</span>
+            </div>
+            <h2 class="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-3">
+                Gerenciar Usuários
+            </h2>
+            <p class="text-purple-500 text-lg">Gerencie os usuários do sistema</p>
         </div>
-    @endif
 
-    <div class="flex justify-between items-center mb-4">
-        <div class="flex items-center bg-white rounded shadow px-3 py-2 w-1/2">
-            <input type="text" wire:model="search" placeholder="🔍 Pesquisar usuário..."
-                   class="w-full outline-none px-2 py-1 rounded text-purple-700">
+        <!-- Mensagens -->
+        @if (session()->has('message'))
+            <div class="mb-6 bg-gradient-to-r from-green-100 to-emerald-100 border-l-4 border-green-500 text-green-800 p-4 rounded-2xl shadow-lg">
+                <div class="flex items-center gap-3">
+                    <span class="text-2xl">✅</span>
+                    <span class="font-medium">{{ session('message') }}</span>
+                </div>
+            </div>
+        @endif
+
+        @if (session()->has('error'))
+            <div class="mb-6 bg-gradient-to-r from-red-100 to-pink-100 border-l-4 border-red-500 text-red-800 p-4 rounded-2xl shadow-lg">
+                <div class="flex items-center gap-3">
+                    <span class="text-2xl">❌</span>
+                    <span class="font-medium">{{ session('error') }}</span>
+                </div>
+            </div>
+        @endif
+
+        <!-- Barra de Ações -->
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6 border border-purple-100">
+            <div class="flex flex-col lg:flex-row justify-between items-center gap-4">
+                <!-- Busca -->
+                <div class="relative flex-1 w-full">
+                    <input type="text" wire:model.live="search" 
+                           class="w-full pl-12 pr-4 py-3 rounded-2xl border-2 border-purple-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all bg-white text-purple-800"
+                           placeholder="🔍 Buscar por nome ou email...">
+                    <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-purple-400">
+                        
+                    </div>
+                </div>
+                
+                <!-- Botão Novo Usuário -->
+                <a href="{{ route('usuarios.create') }}" 
+                   class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-3 px-6 rounded-2xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-3 whitespace-nowrap">
+                    <span>➕</span>
+                    <span>Novo Usuário</span>
+                </a>
+            </div>
         </div>
-        <a href="{{ route('usuarios.create') }}"
-           class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded shadow">
-           + Novo Usuário
-        </a>
-    </div>
 
-    <div class="overflow-x-auto bg-white rounded shadow">
-        <table class="min-w-full divide-y divide-purple-200">
-            <thead class="bg-purple-200 text-purple-800">
-            <tr>
-                <th class="px-4 py-2 text-left">Nome</th>
-                <th class="px-4 py-2 text-left">Email</th>
-                <th class="px-4 py-2 text-left">Ações</th>
-            </tr>
-            </thead>
-            <tbody class="divide-y divide-purple-100">
-            @foreach($usuarios as $usuario)
-                <tr class="hover:bg-purple-50">
-                    <td class="px-4 py-2">{{ $usuario->nome }}</td>
-                    <td class="px-4 py-2">{{ $usuario->email }}</td>
-                    <td class="px-4 py-2 flex space-x-2">
-                        <a href="{{ route('usuarios.edit', $usuario->id) }}"
-                           class="bg-yellow-400 hover:bg-yellow-500 text-white px-2 py-1 rounded shadow text-sm">
-                           ✏️
-                        </a>
-                        <button wire:click="delete({{ $usuario->id }})"
-                                class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded shadow text-sm">
-                            🗑️
-                        </button>
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
+        <!-- Tabela de Usuários -->
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-purple-100">
+            <!-- Cabeçalho da Tabela -->
+            <div class="bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-4">
+                <div class="grid grid-cols-12 gap-4 text-white font-bold">
+                    <div class="col-span-4">👤 Usuário</div>
+                    <div class="col-span-5">📧 Email</div>
+                    <div class="col-span-3 text-center">⚙️ Ações</div>
+                </div>
+            </div>
+
+            <!-- Corpo da Tabela -->
+            <div class="divide-y divide-purple-100">
+                @forelse($usuarios as $usuario)
+                    <div class="grid grid-cols-12 gap-4 px-6 py-4 hover:bg-purple-50 transition-colors group">
+                        <!-- Nome -->
+                        <div class="col-span-4 flex items-center gap-3">
+                            <div class="w-10 h-10 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold">
+                                {{ strtoupper(substr($usuario->nome, 0, 1)) }}
+                            </div>
+                            <div>
+                                <p class="font-semibold text-purple-800">{{ $usuario->nome }}</p>
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="col-span-5 flex items-center">
+                            <p class="text-purple-600">{{ $usuario->email }}</p>
+                        </div>
+
+                        <!-- Ações -->
+                        <div class="col-span-3 flex items-center justify-center gap-2">
+                            <!-- Editar -->
+                            <a href="{{ route('usuarios.edit', $usuario->id) }}"
+                               class="bg-gradient-to-r from-yellow-400 to-orange-400 hover:from-yellow-500 hover:to-orange-500 text-white p-2 rounded-xl transition-all duration-300 transform hover:scale-110 shadow hover:shadow-md group/tooltip relative"
+                               title="Editar Usuário">
+                                <span class="text-sm">✏️</span>
+                                <div class="absolute bottom-full mb-2 hidden group-hover/tooltip:block bg-gray-800 text-white text-xs py-1 px-2 rounded">
+                                    Editar
+                                </div>
+                            </a>
+
+                            <!-- Deletar -->
+                            <button wire:click="delete({{ $usuario->id }})" 
+                                    onclick="return confirm('Tem certeza que deseja deletar este usuário?')"
+                                    class="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white p-2 rounded-xl transition-all duration-300 transform hover:scale-110 shadow hover:shadow-md group/tooltip relative"
+                                    title="Deletar Usuário">
+                                <span class="text-sm">🗑️</span>
+                                <div class="absolute bottom-full mb-2 hidden group-hover/tooltip:block bg-gray-800 text-white text-xs py-1 px-2 rounded">
+                                    Deletar
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                @empty
+                    <!-- Estado Vazio -->
+                    <div class="text-center py-12">
+                        <div class="text-6xl mb-4">😕</div>
+                        <p class="text-gray-600 text-lg mb-2">
+                            @if($search)
+                                Nenhum usuário encontrado para "{{ $search }}"
+                            @else
+                                Nenhum usuário cadastrado
+                            @endif
+                        </p>
+                        <p class="text-purple-400 text-sm">Clique em "Novo Usuário" para adicionar o primeiro</p>
+                    </div>
+                @endforelse
+            </div>
+        </div>
+
+        <!-- Paginação (se estiver usando) -->
+        @if(method_exists($usuarios, 'links'))
+            <div class="mt-6 bg-white rounded-2xl shadow-lg p-4 border border-purple-100">
+                {{ $usuarios->links() }}
+            </div>
+        @endif
+
+        <!-- Estatísticas -->
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-white rounded-2xl p-4 shadow-lg border border-purple-100 text-center">
+                <div class="text-2xl text-purple-600 mb-2">👥</div>
+                <div class="text-2xl font-bold text-purple-800">{{ $usuarios->count() }}</div>
+                <div class="text-purple-400 text-sm">Total de Usuários</div>
+            </div>
+            <div class="bg-white rounded-2xl p-4 shadow-lg border border-purple-100 text-center">
+                <div class="text-2xl text-green-600 mb-2">✅</div>
+                <div class="text-2xl font-bold text-green-800">{{ $usuarios->count() }}</div>
+                <div class="text-green-400 text-sm">Usuários Ativos</div>
+            </div>
+            <div class="bg-white rounded-2xl p-4 shadow-lg border border-purple-100 text-center">
+                <div class="text-2xl text-blue-600 mb-2">📊</div>
+                <div class="text-2xl font-bold text-blue-800">{{ $usuarios->count() }}</div>
+                <div class="text-blue-400 text-sm">No Sistema</div>
+            </div>
+        </div>
     </div>
 </div>
-

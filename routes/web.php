@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Dashboard;
+use App\Livewire\Dashboard\DashboardIndex;
 use App\Livewire\Estoque;
 use App\Livewire\Estoques\EstoqueCreate;
 use App\Livewire\Estoques\EstoqueIndex;
@@ -27,9 +28,19 @@ Route::get('/produtos/create', ProdutosCreate::class)->name('produtos.create');
 Route::get('/produtos/edit/{produtoId}', ProdutosEdit::class)->name('produtos.edit');
 
 //* estoque 
-Route::get('/estoques', EstoqueIndex::class)->name('estoques.index');
+Route::get('/estoques/index', EstoqueIndex::class)->name('estoques.index');
 Route::get('/estoques/create', EstoqueCreate::class)->name('estoques.create');
 
+//* dashboard
+Route::get('dashboard', DashboardIndex::class)->name('dashboard');
+
+//*login
+Route::get('login', \App\Livewire\Auth\Login::class)->name('login');
+
+//* logout
+Route::get('/logout', function () {    session()->flush(); 
+ return redirect()->route('login');
+})->name('logout');
 
 
 

@@ -29,5 +29,25 @@ class MovimentacoesSeeder extends Seeder
             'quantidade' => 50,
             'data_movimentacao' => '2023-05-10',
         ]);
+        Movimentacao::create([
+        'produto_id' => 2,
+        'tipo' => 'saida',
+        'quantidade' => 20,
+        'data_movimentacao' => '2023-05-20',
+    ]);
+
+    Movimentacao::create([
+        'produto_id' => 3,
+        'tipo' => 'entrada',
+        'quantidade' => 30,
+        'data_movimentacao' => '2023-05-05',
+    ]);
+
+    Movimentacao::create([
+        'produto_id' => 3,
+        'tipo' => 'saida',
+        'quantidade' => 15,
+        'data_movimentacao' => '2023-05-25',
+    ]);
     }
 }

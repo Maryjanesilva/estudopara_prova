@@ -7,22 +7,23 @@ use Livewire\Component;
 
 class ProdutosCreate extends Component
 {
-       public $nome, $descricao, $preco, $quantidade, $quantidade_minima;
+      public $nome, $descricao, $preco, $quantidade, $quantidade_minima;
 
     protected $rules = [
         'nome' => 'required|string|max:255',
-        'descricao' => 'required|string|max:500',
+        'descricao' => 'required|string',
         'preco' => 'required|numeric|min:0',
         'quantidade' => 'required|integer|min:0',
         'quantidade_minima' => 'required|integer|min:0',
     ];
+
 
     public function render()
     {
         return view('livewire.produtos.produtos-create');
     }
 
-    public function store()
+   public function store()
     {
         $this->validate();
 
@@ -35,7 +36,10 @@ class ProdutosCreate extends Component
         ]);
 
         session()->flash('message', 'Produto cadastrado com sucesso!');
-        $this->emit('produtoUpdated');
+        
+       
+        $this->dispatch('produtoUpdated');
+        
         $this->resetInputFields();
     }
 
