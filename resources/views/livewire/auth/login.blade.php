@@ -93,7 +93,7 @@
                         <span class="text-sm text-purple-700">Lembrar de mim</span>
                     </label>
                     
-                    <a href="#" class="text-sm text-purple-600 hover:text-purple-800 transition-colors">
+                    <a href="{{ route('password.request') }}" class="text-sm text-purple-600 hover:text-purple-800 transition-colors">
                         Esqueceu a senha?
                     </a>
                 </div>

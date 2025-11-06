@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Auth\ForgotPassword;
+use App\Livewire\Auth\Login as AuthLogin;
 use App\Livewire\Dashboard;
 use App\Livewire\Dashboard\DashboardIndex;
 use App\Livewire\Estoque;
@@ -35,12 +37,16 @@ Route::get('/estoques/create', EstoqueCreate::class)->name('estoques.create');
 Route::get('dashboard', DashboardIndex::class)->name('dashboard');
 
 //*login
-Route::get('login', \App\Livewire\Auth\Login::class)->name('login');
+Route::get('login',AuthLogin::class)->name('login');
 
 //* logout
 Route::get('/logout', function () {    session()->flush(); 
  return redirect()->route('login');
 })->name('logout');
+
+
+//* esqueci senha 
+Route::get('/forgot-password',ForgotPassword::class)->name('password.request');
 
 
 

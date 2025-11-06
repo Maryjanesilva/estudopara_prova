@@ -7,15 +7,12 @@ use Livewire\Component;
 
 class ProdutosEdit extends Component
 {
-    public $produtoId, $nome, $descricao, $preco, $quantidade, $quantidade_minima;
-
-    protected $rules = [
-        'nome' => 'required|string|max:255',
-        'descricao' => 'required|string|max:500',
-        'preco' => 'required|numeric|min:0',
-        'quantidade' => 'required|integer|min:0',
-        'quantidade_minima' => 'required|integer|min:0',
-    ];
+    public $produtoId;
+    public $nome;
+    public $descricao;
+    public $preco;
+    public $quantidade;
+    public $quantidade_minima;
 
     public function mount($produtoId)
     {
@@ -28,14 +25,17 @@ class ProdutosEdit extends Component
         $this->quantidade_minima = $produto->quantidade_minima;
     }
 
-    public function render()
-    {
-        return view('livewire.produtos.produtos-edit');
-    }
-
     public function update()
     {
-        $this->validate();
+        $rules = [
+            'nome' => 'required|string|max:255',
+            'descricao' => 'required|string',
+            'preco' => 'required|numeric|min:0',
+            'quantidade' => 'required|integer|min:0',
+            'quantidade_minima' => 'required|integer|min:0',
+        ];
+
+        $this->validate($rules);
 
         $produto = Produto::find($this->produtoId);
         $produto->update([
@@ -47,6 +47,13 @@ class ProdutosEdit extends Component
         ]);
 
         session()->flash('message', 'Produto atualizado com sucesso!');
-        $this->emit('produtoUpdated');
+        $this->dispatch('produtoUpdated');
     }
+
+    public function render()
+    {
+        return view('livewire.produtos.produtos-edit');
+    }
+
+    
 }
