@@ -1,28 +1,28 @@
-<div class="min-h-screen bg-purple-50 p-6 font-sans">
+<div class="min-h-screen bg-blue-50 p-6 font-sans">
     <div class="max-w-7xl mx-auto">
         <!-- Cabeçalho -->
         <div class="text-center mb-8">
-            <h2 class="text-3xl font-bold text-purple-800 mb-2">📦 Controle de Estoque</h2>
-            <p class="text-purple-600">Moda Express</p>
+            <h2 class="text-3xl font-bold text-blue-800 mb-2">📦 Controle de Estoque</h2>
+            <p class="text-blue-600">Moda Express</p>
         </div>
 
         {{-- Campo de busca --}}
         <div class="mb-6 text-center">
             <input type="text" wire:model.live="busca"
-                   class="px-4 py-2 w-64 rounded-full border-0 shadow-lg focus:ring-2 focus:ring-purple-500 focus:outline-none"
-                   style="background-color: #f3e8ff; color: #581c87;"
+                   class="px-4 py-2 w-64 rounded-full border-0 shadow-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                   style="background-color: #eef2ff; color: #1e3a8a;"
                    placeholder="🔍 Buscar produto pelo nome...">
         </div>
 
         {{-- Formulário de edição --}}
         @if($modoEdicao)
-            <div class="bg-gradient-to-r from-purple-100 to-pink-100 p-6 mb-6 rounded-2xl shadow-lg border border-purple-200">
-                <h5 class="font-semibold mb-4 text-center text-purple-800">
+            <div class="bg-gradient-to-r from-blue-100 to-cyan-100 p-6 mb-6 rounded-2xl shadow-lg border border-blue-200">
+                <h5 class="font-semibold mb-4 text-center text-blue-800">
                     ✏️ Editando estoque de <span class="font-bold">{{ $produtoSelecionado }}</span>
                 </h5>
                 <div class="flex flex-col md:flex-row justify-center items-center gap-4">
                     <input type="number" wire:model="quantidade" 
-                           class="px-4 py-2 w-32 text-center rounded-lg border border-purple-300 focus:ring-2 focus:ring-purple-500 focus:outline-none"
+                           class="px-4 py-2 w-32 text-center rounded-lg border border-blue-300 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                            placeholder="Quantidade" min="0">
                     <div class="flex gap-2">
                         <button wire:click="atualizar" 
@@ -48,10 +48,10 @@
         {{-- Cards dos produtos --}}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse($produtos as $produto)
-                <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-purple-100">
+                <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-blue-100">
                     <div class="p-6 text-center">
                         <div class="text-4xl mb-3">🛍️</div>
-                        <h5 class="text-lg font-bold text-purple-800 mb-2">{{ $produto->nome }}</h5>
+                        <h5 class="text-lg font-bold text-blue-800 mb-2">{{ $produto->nome }}</h5>
                         <p class="text-gray-600 text-sm mb-3">{{ Str::limit($produto->descricao, 60) }}</p>
                         
                         <div class="space-y-2 mb-4">
@@ -73,7 +73,7 @@
                         @endif
 
                         <button wire:click="editar({{ $produto->id }})"
-                                class="border-2 border-purple-500 text-purple-600 hover:bg-purple-500 hover:text-white px-4 py-2 rounded-full transition-all duration-300 font-medium">
+                                class="border-2 border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white px-4 py-2 rounded-full transition-all duration-300 font-medium">
                             ✏️ Editar Estoque
                         </button>
                     </div>
