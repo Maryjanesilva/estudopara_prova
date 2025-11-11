@@ -1,15 +1,15 @@
-<div class="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 p-6 font-sans">
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 p-6 font-sans">
     <div class="max-w-7xl mx-auto">
         
         <!-- Cabeçalho -->
         <div class="text-center mb-8">
-            <div class="inline-flex items-center justify-center w-20 h-20 bg-white rounded-full shadow-lg mb-4 border border-purple-200">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-white rounded-full shadow-lg mb-4 border border-blue-200">
                 <span class="text-3xl">👥</span>
             </div>
-            <h2 class="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-3">
+            <h2 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-3">
                 Gerenciar Usuários
             </h2>
-            <p class="text-purple-500 text-lg">Gerencie os usuários do sistema</p>
+            <p class="text-blue-500 text-lg">Gerencie os usuários do sistema</p>
         </div>
 
         <!-- Mensagens -->
@@ -32,21 +32,21 @@
         @endif
 
         <!-- Barra de Ações -->
-        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6 border border-purple-100">
+        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6 border border-blue-100">
             <div class="flex flex-col lg:flex-row justify-between items-center gap-4">
                 <!-- Busca -->
                 <div class="relative flex-1 w-full">
                     <input type="text" wire:model.live="search" 
-                           class="w-full pl-12 pr-4 py-3 rounded-2xl border-2 border-purple-200 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition-all bg-white text-purple-800"
+                           class="w-full pl-12 pr-4 py-3 rounded-2xl border-2 border-blue-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all bg-white text-blue-800"
                            placeholder="🔍 Buscar por nome ou email...">
-                    <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-purple-400">
+                    <div class="absolute left-4 top-1/2 transform -translate-y-1/2 text-blue-400">
                         
                     </div>
                 </div>
                 
-                <!-- Botão Novo Usuário -->
+                <!-- Botão Novo Usuário (VERDE) -->
                 <a href="{{ route('usuarios.create') }}" 
-                   class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-3 px-6 rounded-2xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-3 whitespace-nowrap">
+                   class="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white py-3 px-6 rounded-2xl font-bold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center gap-3 whitespace-nowrap">
                     <span>➕</span>
                     <span>Novo Usuário</span>
                 </a>
@@ -54,9 +54,9 @@
         </div>
 
         <!-- Tabela de Usuários -->
-        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-purple-100">
+        <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-blue-100">
             <!-- Cabeçalho da Tabela -->
-            <div class="bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-4">
+            <div class="bg-gradient-to-r from-blue-600 to-cyan-600 px-6 py-4">
                 <div class="grid grid-cols-12 gap-4 text-white font-bold">
                     <div class="col-span-4">👤 Usuário</div>
                     <div class="col-span-5">📧 Email</div>
@@ -65,22 +65,22 @@
             </div>
 
             <!-- Corpo da Tabela -->
-            <div class="divide-y divide-purple-100">
+            <div class="divide-y divide-blue-100">
                 @forelse($usuarios as $usuario)
-                    <div class="grid grid-cols-12 gap-4 px-6 py-4 hover:bg-purple-50 transition-colors group">
+                    <div class="grid grid-cols-12 gap-4 px-6 py-4 hover:bg-blue-50 transition-colors group">
                         <!-- Nome -->
                         <div class="col-span-4 flex items-center gap-3">
-                            <div class="w-10 h-10 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white font-bold">
+                            <div class="w-10 h-10 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full flex items-center justify-center text-white font-bold">
                                 {{ strtoupper(substr($usuario->nome, 0, 1)) }}
                             </div>
                             <div>
-                                <p class="font-semibold text-purple-800">{{ $usuario->nome }}</p>
+                                <p class="font-semibold text-blue-800">{{ $usuario->nome }}</p>
                             </div>
                         </div>
 
                         <!-- Email -->
                         <div class="col-span-5 flex items-center">
-                            <p class="text-purple-600">{{ $usuario->email }}</p>
+                            <p class="text-blue-600">{{ $usuario->email }}</p>
                         </div>
 
                         <!-- Ações -->
@@ -118,18 +118,18 @@
                                 Nenhum usuário cadastrado
                             @endif
                         </p>
-                        <p class="text-purple-400 text-sm">Clique em "Novo Usuário" para adicionar o primeiro</p>
+                        <p class="text-blue-400 text-sm">Clique em "Novo Usuário" para adicionar o primeiro</p>
                     </div>
                 @endforelse
             </div>
         </div>
-
         <!-- Paginação (se estiver usando) -->
         @if(method_exists($usuarios, 'links'))
-            <div class="mt-6 bg-white rounded-2xl shadow-lg p-4 border border-purple-100">
+            <div class="mt-6 bg-white rounded-2xl shadow-lg p-4 border border-blue-100">
                 {{ $usuarios->links() }}
             </div>
         @endif
+
 
         <!-- Estatísticas -->
         <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">

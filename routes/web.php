@@ -4,6 +4,8 @@ use App\Livewire\Auth\ForgotPassword;
 use App\Livewire\Auth\Login as AuthLogin;
 use App\Livewire\Dashboard;
 use App\Livewire\Dashboard\DashboardIndex;
+use App\Livewire\EsqueciSenha;
+use App\Livewire\EsqueciSenha\ResetPassword;
 use App\Livewire\Estoque;
 use App\Livewire\Estoques\EstoqueCreate;
 use App\Livewire\Estoques\EstoqueIndex;
@@ -46,7 +48,11 @@ Route::get('/logout', function () {    session()->flush();
 
 
 //* esqueci senha 
-Route::get('/forgot-password',ForgotPassword::class)->name('password.request');
+Route::get('forgot-password',ForgotPassword::class)->name('password.request');
+
+
+
+Route::get('/reset-password/{token}', ResetPassword::class)->name('password.reset');
 
 
 
